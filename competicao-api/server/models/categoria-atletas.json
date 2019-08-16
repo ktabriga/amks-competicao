@@ -1,0 +1,29 @@
+{
+  "name": "CategoriaAtletas",
+  "plural": "categoria-atletas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "atletaId": {
+      "type": "number",
+      "required": true
+    },
+    "categoriaId": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "atleta": {
+      "type": "belongsTo",
+      "model": "Atleta",
+      "foreignKey": "atletaId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

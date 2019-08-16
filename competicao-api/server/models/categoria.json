@@ -1,0 +1,37 @@
+{
+  "name": "Categoria",
+  "plural": "categorias",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "removed": {
+      "type": "boolean"
+    },
+    "concluido": {
+      "type": "boolean"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "atletas": {
+      "type": "hasMany",
+      "model": "Atleta",
+      "foreignKey": "categoriaId",
+      "through": "CategoriaAtletas"
+    },
+    "resultado": {
+      "type": "hasOne",
+      "model": "Resultado",
+      "foreignKey": "categoriaId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

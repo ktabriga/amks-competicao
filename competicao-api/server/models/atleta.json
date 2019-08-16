@@ -1,0 +1,45 @@
+{
+  "name": "Atleta",
+  "plural": "atletas",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "removed": {
+      "type": "boolean"
+    },
+    "peso": {
+      "type": "number"
+    },
+    "graduacao": {
+      "type": "string",
+      "required": true
+    },
+    "nascimento": {
+      "type": "date",
+      "required": true
+    },
+    "altura": {
+      "type": "number"
+    },
+    "escolaId": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "escola": {
+      "type": "belongsTo",
+      "model": "Escola",
+      "foreignKey": "escolaId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

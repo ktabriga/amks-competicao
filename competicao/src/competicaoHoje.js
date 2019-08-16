@@ -1,0 +1,17 @@
+export default [
+'Murilo Augusto Maecondes',
+'Luiz Henrique dos Santos Rodrigues',
+'Matheus Henrique dos Santos',
+'Gabriel Machado de Salles',
+'Anelize Baladeli da Silva',
+'Cauã Oliveira Leopoldino',
+'Shakira Mendonça Evangelista',
+'Guilherme Zirondi do Amaral',
+'Caio César Frasson de Oliveira',
+'Danilo Pereira Felipe',
+'Gabriel Henrique Destro de Oliveira',
+'Hiran Wagner Rocha',
+'Maria Eduarda de Barros Lima',
+'Tuan Hreczynski Ribeiro',
+'Fabrício Gabriel Araújo Dalben',
+]

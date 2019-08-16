@@ -1,0 +1,61 @@
+{
+  "name": "Resultado",
+  "plural": "resultados",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "primeiro": {
+      "type": "number"
+    },
+    "segundo": {
+      "type": "number"
+    },
+    "terceiro": {
+      "type": "number"
+    },
+    "quarto": {
+      "type": "number"
+    },
+    "quinto": {
+      "type": "number"
+    },
+    "sexto": {
+      "type": "number"
+    },
+    "setimo": {
+      "type": "number"
+    },
+    "oitavo": {
+      "type": "number"
+    },
+    "categoriaId": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "primeiroat": {
+      "type": "belongsTo",
+      "model": "Atleta",
+      "foreignKey": "primeiro"
+    },
+    "segundoat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "segundo" },
+    "terceiroat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "terceiro" },
+    "quartoat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "quarto" },
+    "quintoat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "quinto" },
+    "sextoat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "sexto" },
+    "setimoat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "setimo" },
+    "oitavoat": { "type": "belongsTo", "model": "Atleta", "foreignKey": "oitavo" }
+  },
+  "acls": [],
+  "methods": {
+    "resultadoGeral": {
+      "returns": { "arg": "data"},
+      "http": {"verb": "get", "path": "/resultado-geral"}
+    }
+  }
+}

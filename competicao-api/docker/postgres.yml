@@ -1,0 +1,13 @@
+version: '2'
+services:
+  competicao-postgresql:
+    container_name: competicao-postgres
+    image: postgres:10.5-alpine
+    # volumes:
+    #   - ./seed/seed.sql:/docker-entrypoint-initdb.d/seed.sql
+    environment:
+      - 'POSTGRES_DB=competicao'
+      - 'POSTGRES_USER=amks'
+      - 'POSTGRES_PASSWORD=amks1234'
+    ports:
+      - 5432:5432
