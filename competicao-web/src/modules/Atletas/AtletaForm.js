@@ -118,7 +118,7 @@ function AtletaForm({classes, ...props}) {
                   loadOptions={loadEscolas}
                   autoFocus
                   component={Autocomplete}
-                  label='Escola'
+                  label='Dojo'
                   name='escola' />
               </Grid>
               <Grid item sm={4} xs={12}>

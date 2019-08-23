@@ -30,8 +30,8 @@ export function EscolasList(props) {
             deleteItem={handleDelete}
             labelNew={'Novo'}
             filterLabels={{find: 'Buscar', clear: 'Limpar'}}
-            onClickEdit={(item) => props.history.push(`/escolas/${item.id}`)}
-            onClickNew={() => props.history.push('/escolas/new')}
+            onClickEdit={(item) => props.history.push(`/dojos/${item.id}`)}
+            onClickNew={() => props.history.push('/dojos/new')}
             getPage={getPage}
             getCount={getCount}
             listOptions={listOptions} />

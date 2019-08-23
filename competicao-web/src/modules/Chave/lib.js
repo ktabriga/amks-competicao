@@ -1,10 +1,11 @@
 import * as R from 'ramda'
 import moment from 'moment'
+import uuid from 'uuid/v1'
 
 const isPar = x => x % 2 == 0
 
 
-const makeSide = side => {
+const createSide = side => {
   if (!side) return
   if (side._isGame) {
     return {
@@ -20,24 +21,26 @@ const makeSide = side => {
   }
 }
 
-let id = 1
-const createGames = (prefix, sides) => {
-  const getGame = (first, second) => ({
+const createGame = (prefix, firstPlayer, secondPlayer) => {
+  const id = uuid()
+  return {
     id,
     _isGame: true,
     date: moment().format(),
     name: `${prefix}${id}`,
     sides: {
-      first: makeSide(first),
-      second: makeSide(second)
+      first: createSide(firstPlayer),
+      second: createSide(secondPlayer)
     }
-  })
+  }
+}
+
+const createGames = (prefix, players) => {
   const games = []
-  for (let i = 0; i < sides.length; i=i+2) {
-    const first = sides[i]
-    const second = sides[i+1]
-    games.push(getGame(first, second))
-    id++
+  for (let i = 0; i < players.length; i=i+2) {
+    const first = players[i]
+    const second = players[i+1]
+    games.push(createGame(prefix, first, second))
   }
   return games
 }
@@ -62,7 +65,6 @@ const generateBracketInfo = (players) => {
 }
 
 const makeGameListWithExempted = (exempted, fisrtGames, players) => {
-  let gameList
   const exemptedPlayers = R.takeLast(exempted, players)
   if (exempted > 0 && isPar(exempted)) {
     return [
@@ -70,13 +72,13 @@ const makeGameListWithExempted = (exempted, fisrtGames, players) => {
       ...fisrtGames,
       ...R.takeLast(exempted / 2, exemptedPlayers)
     ]
-  } else {
-    return [
-      ...R.take(Math.ceil(exempted / 2) -1, exemptedPlayers),
-      ...fisrtGames,
-      ...R.takeLast(Math.ceil(exempted / 2), exemptedPlayers)
-    ]
   }
+
+  return [
+    ...R.take(Math.ceil(exempted / 2) -1, exemptedPlayers),
+    ...fisrtGames,
+    ...R.takeLast(Math.ceil(exempted / 2), exemptedPlayers)
+  ]
 }
 
 //main function to generate the bracket

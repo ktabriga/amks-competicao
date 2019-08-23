@@ -23,7 +23,7 @@ class Login extends React.Component {
   handleSubmit = async (credentials) => {
     const {onSubmit} = this.props
     const data = await onSubmit(credentials)
-    if (data.ok) {
+    if (data && data.ok) {
       if (!this.context.handleUserLogin) {
         return console.warn('Login Context not found')
       }

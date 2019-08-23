@@ -26,8 +26,8 @@ const menuItems = [
     label: 'Atletas'
   }, {
     icon: HomeIcon,
-    pathname: `/escolas` ,
-    label: 'Escolas'
+    pathname: `/dojos` ,
+    label: 'Dojos'
   }, {
     icon: FitnessCenter,
     pathname: `/categorias` ,
@@ -43,8 +43,8 @@ const Home = () => (
     <Switch>
       <Route path='/atletas' exact component={AtletaList} />
       <Route path='/atletas/:id' component={AtletaForm} />
-      <Route path='/escolas' exact component={EscolasList} />
-      <Route path='/escolas/:id' component={EscolaForm} />
+      <Route path='/dojos' exact component={EscolasList} />
+      <Route path='/dojos/:id' component={EscolaForm} />
       <Route path='/categorias' exact component={CategoriaList} />
       <Route path='/categorias/:id' component={CategoriaTabs} />
     </Switch>

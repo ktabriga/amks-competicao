@@ -4,6 +4,7 @@ import {loopbackFilters} from '../../lib/Api/loopback'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import * as R from 'ramda'
 import Autocomplete from '../../lib/Common/Autocomplete'
 import {TextField} from 'final-form-material-ui';
 import {Field} from 'react-final-form';
@@ -212,7 +213,7 @@ const Participantes = (props) => {
           <TableHead>
             <TableRow>
               <TableCell>Nome</TableCell>
-              <TableCell>Escola</TableCell>
+              <TableCell>Dojo</TableCell>
               <TableCell></TableCell>
             </TableRow>
           </TableHead>
@@ -277,10 +278,44 @@ const ajustarConflitos = competidores => {
   return copy
 }
 
+const formatGameName = participacao => {
+  const [first, ...rest] = participacao.atleta.nome.split(' ')
+  let nome = first
+  if (rest && rest.length) {
+    nome =`${nome} ${R.last(rest)}`
+  }
+
+  return ` ${nome} - ${participacao.escola.nome || ''}`
+}
+
+const formatParticipacao = categoriaId => (participante, ordem) => {
+  return ({
+    ordem,
+    id: participante.id,
+    name: formatGameName(participante),
+    escolaId: participante.atleta.escolaId,
+    atletaId: participante.atleta.id,
+    categoriaId
+  })
+}
+
+const includeEscola = async participacoes => {
+  const promises = participacoes.map(async p => {
+    const response = await escolasApi.getOne(p.atleta.escolaId)
+    return {
+      ...p,
+      escola: response.ok && response.data
+    }
+  })
+  return Promise.all(promises)
+}
+
+
 const ChaveTab = (props) => {
   const [atletasChave, setAtletasChave] = useState([])
   const [categoria, setCategoria] = useState({})
   const randomOrder = () => Math.floor(Math.random() * 20);
+
   const gerarChave = async () => {
     const categoriaId = props.match.params.id
     const participantesResponse = await categoriaAtletaApi.getList({
@@ -288,18 +323,12 @@ const ChaveTab = (props) => {
       include: 'atleta'
     })
     if (participantesResponse.ok) {
-      let newAtletasChave = participantesResponse.data.map(p => ({
+      const participacoes = await includeEscola(participantesResponse.data)
+      let newAtletasChave = participacoes.map(p => ({
         ...p,
         ordem: randomOrder()
       })).sort((a, b) => a.ordem - b.ordem)
-        .map((participante, index) => ({
-          ordem: index,
-          id: participante.id,
-          name: `${participante.atleta.escolaId || ''} ${participante.atleta.nome}`,
-          escolaId: participante.atleta.escolaId,
-          atletaId: participante.atleta.id,
-          categoriaId
-        }))
+        .map(formatParticipacao(categoriaId))
       newAtletasChave = ajustarConflitos(newAtletasChave)
 
       const atletasChaveListResponse = await getAtletasChaveList()
@@ -330,9 +359,10 @@ const ChaveTab = (props) => {
   const fetchChave = async () => {
     const response = await getAtletasChaveList()
     if (response.ok) {
-      const atletasChave = response.data.map(a => ({
+      const participacoes = await includeEscola(response.data)
+      const atletasChave = participacoes.map(a => ({
         id: a.id,
-        name: `${a.atleta.escolaId || ''} ${a.atleta.nome}`,
+        name: formatGameName(a)
       }))
       setAtletasChave(atletasChave)
     }
@@ -375,27 +405,27 @@ const ChaveTab = (props) => {
             <Typography variant='h5'> {categoria.nome} </Typography>
           </Grid>
           <Grid item>
-            {
-              atletasChave.length ?
-                <Chave atletas={atletasChave} /> : null
-            }
-          </Grid>
-        </Grid>
-      </Grid>
+    {
+      atletasChave.length ?
+        <Chave atletas={atletasChave} /> : null
+    }
+  </Grid>
+</Grid>
     </Grid>
-  )
+    </Grid>
+)
 }
 
 const ResultadoAtleta = ({name, label}) => (
-  <Grid item sm={8}>
-    <Field
-      fullWidth
-      autoFocus
-      loadOptions={loadAtletas}
-      component={Autocomplete}
-      label={label}
-      name={name}/>
-  </Grid>
+<Grid item sm={8}>
+  <Field
+    fullWidth
+    autoFocus
+    loadOptions={loadAtletas}
+    component={Autocomplete}
+    label={label}
+    name={name}/>
+</Grid>
 )
 
 const ResultadoEscola = () => {
@@ -514,7 +544,7 @@ export function CategoriaTabs(props) {
         {value: '', label: 'Categoria'},
         {value: 'participantes', label: 'Participantes'},
         {value: 'chave', label: 'Chave'},
-        {value: 'resultado', label: 'Resultado'},
+        //{value: 'resultado', label: 'Resultado'},
       ]}
       navigate={navigate}>
       <div>

@@ -33,7 +33,7 @@
     "react-scripts": "2.1.5",
     "react-select": "^2.4.1",
     "react-text-mask": "^5.4.3",
-    "react-tournament-bracket": "^0.2.4",
+    "react-tournament-bracket": "file:../../react-tournament-bracket",
     "recompose": "^0.30.0",
     "redux": "^4.0.0",
     "redux-actions": "^2.6.1",
@@ -42,7 +42,8 @@
     "seamless-immutable": "^7.1.4",
     "string-mask": "^0.3.0",
     "styled-components": "^3.4.6",
-    "text-mask-addons": "^3.8.0"
+    "text-mask-addons": "^3.8.0",
+    "uuid": "^3.3.2"
   },
   "scripts": {
     "start": "env PORT=3002 react-scripts start",
