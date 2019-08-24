@@ -4,13 +4,13 @@
     "connector": "memory"
   },
   "postgres": {
-    "host": "postgres",
-    "port": 5432,
+    "host": "${DB_HOST}",
+    "port": "${DB_PORT}",
     "url": "",
-    "database": "competicao",
-    "password": "iyes4319",
+    "database": "${DB_NAME}",
+    "password": "${DB_PASSWORD}",
     "name": "postgres",
-    "user": "iyes",
+    "user": "${DB_USER}",
     "connector": "postgresql"
   }
 }

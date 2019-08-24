@@ -65,7 +65,7 @@ export function AtletaList(props) {
       },
       nascimento: {
         label: 'Data Nascimento',
-        format: nascimento => moment(nascimento).format('DD/MM/YYYY')
+        format: nascimento => nascimento ? moment(nascimento).format('DD/MM/YYYY') : ''
       },
       graduacao:{
         label: 'Graduação'

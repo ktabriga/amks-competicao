@@ -1,7 +1,7 @@
 import { create } from 'apisauce';
 import * as R from 'ramda'
 
-const baseURL = process.env.NODE_ENV === 'production' ? 'https://api.iyes.ml/api' : 'http://localhost:3000/api'
+const baseURL = process.env.NODE_ENV === 'production' ? 'http://3.130.204.172:9000/api' : 'http://localhost:3000/api'
 
 const AUTH_HEADER = 'X-Auth-Token'
 const api = create({

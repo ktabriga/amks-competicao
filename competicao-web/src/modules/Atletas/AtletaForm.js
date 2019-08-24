@@ -52,7 +52,6 @@ const loadEscolas = async (inputValue) => {
 function AtletaForm({classes, ...props}) {
   const validate = values => ({
     nome: values.nome ? undefined : 'Obrigatório',
-    nascimento: values.nascimento ? undefined : 'Obrigatório',
   })
 
   const submitDecorator = async ({id, data, handleSubmit}) => {
@@ -121,14 +120,14 @@ function AtletaForm({classes, ...props}) {
                   label='Dojo'
                   name='escola' />
               </Grid>
-              <Grid item sm={4} xs={12}>
+              <Grid item sm={3} xs={12}>
                 <Field
                   fullWidth
                   component={DatePicker}
                   label='Data Nascimento'
                   name='nascimento' />
               </Grid>
-              <Grid item sm={4} xs={12}>
+              <Grid item sm={3} xs={12}>
                 <Field
                   type='number'
                   fullWidth
@@ -136,7 +135,15 @@ function AtletaForm({classes, ...props}) {
                   label='Altura em cm'
                   name='altura' />
               </Grid>
-              <Grid item sm={4} xs={12}>
+              <Grid item sm={3} xs={12}>
+                <Field
+                  type='number'
+                  fullWidth
+                  component={TextField}
+                  label='Idade'
+                  name='idade' />
+              </Grid>
+              <Grid item sm={3} xs={12}>
                 <Field
                   type='number'
                   fullWidth

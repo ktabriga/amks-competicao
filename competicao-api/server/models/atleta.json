@@ -22,8 +22,10 @@
       "required": true
     },
     "nascimento": {
-      "type": "date",
-      "required": true
+      "type": "date"
+    },
+    "idade": {
+      "type": "number"
     },
     "altura": {
       "type": "number"
