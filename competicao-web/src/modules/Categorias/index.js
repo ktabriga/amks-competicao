@@ -24,6 +24,22 @@ import Chave from '../Chave'
 import domtoimage from 'dom-to-image'
 import fileSaver from 'file-saver'
 
+
+function CategoriaFilter(props) {
+  return (
+    <Grid spacing={24} container>
+      <Grid item sm>
+        <Field
+          fullWidth
+          component={TextField}
+          label='Nome'
+          name="nome"/>
+      </Grid>
+    </Grid>
+  )
+}
+
+
 export function CategoriaList(props) {
   const listOptions = {
     defaultOrder: 'nome',
@@ -43,12 +59,16 @@ export function CategoriaList(props) {
 
   return (
     <ListApi
+      filtersConfig={{
+        nome: loopbackFilters.regexp
+      }}
       api={categoriasApi}>
       {
         ({getPage, handleDelete, getCount}) => (
           <List
             {...props}
             withPaper
+            filter={CategoriaFilter}
             deleteItem={handleDelete}
             labelNew={'Novo'}
             filterLabels={{find: 'Buscar', clear: 'Limpar'}}
@@ -279,10 +299,14 @@ const ajustarConflitos = competidores => {
 }
 
 const formatGameName = participacao => {
-  const [first, ...rest] = participacao.atleta.nome.split(' ')
+  console.log(participacao)
+  const [first, second] = participacao.atleta.nome.split(' ')
   let nome = first
-  if (rest && rest.length) {
-    nome =`${nome} ${R.last(rest)}`
+  if (second) {
+    nome =`${nome} ${second}`
+  }
+  if (participacao.categoria && /equipe/i.test(participacao.categoria.nome)) {
+    nome = participacao.atleta.nome
   }
 
   return ` ${nome} - ${participacao.escola.nome || ''}`
@@ -320,7 +344,7 @@ const ChaveTab = (props) => {
     const categoriaId = props.match.params.id
     const participantesResponse = await categoriaAtletaApi.getList({
       where: { categoriaId },
-      include: 'atleta'
+      include: ['atleta','categoria']
     })
     if (participantesResponse.ok) {
       const participacoes = await includeEscola(participantesResponse.data)
@@ -352,7 +376,7 @@ const ChaveTab = (props) => {
     const categoriaId = props.match.params.id
     return chaveApi.getList({
       where: {categoriaId},
-      include: 'atleta'
+      include: ['atleta', 'categoria']
     })
   }
 

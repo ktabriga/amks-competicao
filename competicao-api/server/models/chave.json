@@ -26,6 +26,11 @@
       "type": "belongsTo",
       "model": "Atleta",
       "foreignKey": "atletaId"
+    },
+    "categoria": {
+      "type": "belongsTo",
+      "model": "Categoria",
+      "foreignKey": "categoriaId"
     }
   },
   "acls": [],
