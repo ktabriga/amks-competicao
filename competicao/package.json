@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "jsog": "^1.0.7",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "ramda": "^0.25.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
